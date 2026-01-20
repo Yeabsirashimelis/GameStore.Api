@@ -1,4 +1,5 @@
 using GameStore.Api.Endpoints;
+using GameStore.Api.Middleware;
 using GameStore.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,8 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure middleware
+app.UseExceptionHandling();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

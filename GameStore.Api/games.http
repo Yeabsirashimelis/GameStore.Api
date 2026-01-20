@@ -1,0 +1,119 @@
+@baseUrl = http://localhost:5100
+
+### =====================
+### GET REQUESTS
+### =====================
+
+### Get all games (with pagination)
+GET {{baseUrl}}/games
+Accept: application/json
+
+### Get all games - Page 1 with 3 items
+GET {{baseUrl}}/games?page=1&pageSize=3
+Accept: application/json
+
+### Get all games - Filter by genre
+GET {{baseUrl}}/games?genre=Football
+Accept: application/json
+
+### Get all games - Filter by price range
+GET {{baseUrl}}/games?minPrice=40&maxPrice=60
+Accept: application/json
+
+### Get all games - Sort by price descending
+GET {{baseUrl}}/games?sortBy=price&descending=true
+Accept: application/json
+
+### Get all games - Combined filters
+GET {{baseUrl}}/games?genre=Football&sortBy=price&descending=true&page=1&pageSize=5
+Accept: application/json
+
+### Get a single game by ID
+GET {{baseUrl}}/games/1
+Accept: application/json
+
+### Get a non-existent game (should return 404)
+GET {{baseUrl}}/games/999
+Accept: application/json
+
+### =====================
+### POST REQUESTS
+### =====================
+
+### Create a new game
+POST {{baseUrl}}/games
+Content-Type: application/json
+
+{
+    "name": "The Witcher 3: Wild Hunt",
+    "genre": "Action RPG",
+    "price": 39.99,
+    "releaseDate": "2015-05-19"
+}
+
+### Create another game
+POST {{baseUrl}}/games
+Content-Type: application/json
+
+{
+    "name": "Minecraft",
+    "genre": "Sandbox",
+    "price": 29.99,
+    "releaseDate": "2011-11-18"
+}
+
+### Create game with invalid data (should return validation error)
+POST {{baseUrl}}/games
+Content-Type: application/json
+
+{
+    "name": "",
+    "genre": "Action",
+    "price": -5,
+    "releaseDate": "2023-01-01"
+}
+
+### =====================
+### PUT REQUESTS
+### =====================
+
+### Update an existing game
+PUT {{baseUrl}}/games/1
+Content-Type: application/json
+
+{
+    "name": "E-Football 2024",
+    "genre": "Sports",
+    "price": 29.99,
+    "releaseDate": "2023-09-21"
+}
+
+### Update a non-existent game (should return 404)
+PUT {{baseUrl}}/games/999
+Content-Type: application/json
+
+{
+    "name": "Non-existent Game",
+    "genre": "Unknown",
+    "price": 9.99,
+    "releaseDate": "2023-01-01"
+}
+
+### =====================
+### DELETE REQUESTS
+### =====================
+
+### Delete a game
+DELETE {{baseUrl}}/games/5
+Accept: application/json
+
+### Delete a non-existent game (should return 404)
+DELETE {{baseUrl}}/games/999
+Accept: application/json
+
+### =====================
+### SWAGGER UI
+### =====================
+
+### Access Swagger UI (open in browser)
+# http://localhost:5100/
