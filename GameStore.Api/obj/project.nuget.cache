@@ -1,8 +1,29 @@
 {
   "version": 2,
-  "dgSpecHash": "ZrMASCdyo/w=",
+  "dgSpecHash": "splb3E6xVrU=",
   "success": true,
   "projectFilePath": "C:\\Users\\hp\\Desktop\\event-driven\\GameStore.Api\\GameStore.Api.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.0-preview.1.25120.3\\microsoft.aspnetcore.openapi.10.0.0-preview.1.25120.3.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\microsoft.openapi\\2.0.0-preview5\\microsoft.openapi.2.0.0-preview5.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "message": "GameStore.Api depends on Microsoft.AspNetCore.OpenApi (>= 10.0.0-preview.1.24081.5) but Microsoft.AspNetCore.OpenApi 10.0.0-preview.1.24081.5 was not found. Microsoft.AspNetCore.OpenApi 10.0.0-preview.1.25120.3 was resolved instead.",
+      "projectPath": "C:\\Users\\hp\\Desktop\\event-driven\\GameStore.Api\\GameStore.Api.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\hp\\Desktop\\event-driven\\GameStore.Api\\GameStore.Api.csproj",
+      "libraryId": "Microsoft.AspNetCore.OpenApi",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }
