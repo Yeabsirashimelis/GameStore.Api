@@ -1,11 +1,16 @@
 using GameStore.Api.Endpoints;
 using GameStore.Api.Middleware;
 using GameStore.Api.Repositories;
+using GameStore.Api.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register services
-builder.Services.AddSingleton<IGameRepository, InMemoryGameRepository>();
+// Configure MongoDB
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
+
+// Register repositories
+builder.Services.AddSingleton<IGameRepository, MongoDbGameRepository>();
 
 // Add Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
@@ -15,10 +20,13 @@ builder.Services.AddSwaggerGen(options =>
     { 
         Title = "GameStore API", 
         Version = "v1",
-        Description = "A modern API for managing video games in a game store",
+        Description = "A modern API for managing video games in a game store with MongoDB Atlas",
         Contact = new() { Name = "GameStore Team" }
     });
 });
+
+// Add health checks
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -37,5 +45,6 @@ if (app.Environment.IsDevelopment())
 
 // Map endpoints
 app.MapGamesEndpoints();
+app.MapHealthChecks("/health");
 
 app.Run();

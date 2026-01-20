@@ -4,11 +4,11 @@ namespace GameStore.Api.Repositories;
 
 public interface IGameRepository
 {
-    IEnumerable<Game> GetAll();
-    IEnumerable<Game> GetAll(string? genre, decimal? minPrice, decimal? maxPrice, string? sortBy, bool descending, int page, int pageSize);
-    Game? GetById(int id);
-    Game Create(Game game);
-    Game? Update(int id, Game game);
-    bool Delete(int id);
-    int Count(string? genre, decimal? minPrice, decimal? maxPrice);
+    Task<IEnumerable<Game>> GetAllAsync();
+    Task<IEnumerable<Game>> GetAllAsync(string? genre, decimal? minPrice, decimal? maxPrice, string? sortBy, bool descending, int page, int pageSize);
+    Task<Game?> GetByIdAsync(string id);
+    Task<Game> CreateAsync(Game game);
+    Task<Game?> UpdateAsync(string id, Game game);
+    Task<bool> DeleteAsync(string id);
+    Task<long> CountAsync(string? genre, decimal? minPrice, decimal? maxPrice);
 }

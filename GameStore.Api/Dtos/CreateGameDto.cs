@@ -15,5 +15,5 @@ public record CreateGameDto(
     decimal Price,
 
     [Required(ErrorMessage = "Release date is required")]
-    DateOnly ReleaseDate
+    DateTime ReleaseDate
 );

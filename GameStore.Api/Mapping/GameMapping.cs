@@ -8,11 +8,13 @@ public static class GameMapping
     public static GameDto ToDto(this Game game)
     {
         return new GameDto(
-            game.Id,
+            game.Id!,
             game.Name,
             game.Genre,
             game.Price,
-            game.ReleaseDate
+            game.ReleaseDate,
+            game.CreatedAt,
+            game.UpdatedAt
         );
     }
 
@@ -27,7 +29,7 @@ public static class GameMapping
         };
     }
 
-    public static Game ToEntity(this UpdateGameDto dto, int id)
+    public static Game ToEntity(this UpdateGameDto dto, string id)
     {
         return new Game
         {

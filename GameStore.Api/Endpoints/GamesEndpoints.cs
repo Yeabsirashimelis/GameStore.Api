@@ -12,7 +12,7 @@ public static class GamesEndpoints
             .WithTags("Games");
 
         // GET /games - Get all games with filtering, sorting, and pagination
-        group.MapGet("/", (
+        group.MapGet("/", async (
             IGameRepository repository,
             string? genre = null,
             decimal? minPrice = null,
@@ -26,15 +26,15 @@ public static class GamesEndpoints
             if (pageSize < 1) pageSize = 10;
             if (pageSize > 100) pageSize = 100;
 
-            var games = repository.GetAll(genre, minPrice, maxPrice, sortBy, descending, page, pageSize);
-            var totalCount = repository.Count(genre, minPrice, maxPrice);
+            var games = await repository.GetAllAsync(genre, minPrice, maxPrice, sortBy, descending, page, pageSize);
+            var totalCount = await repository.CountAsync(genre, minPrice, maxPrice);
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
             var response = new PaginatedResponse<GameDto>(
                 games.Select(g => g.ToDto()),
                 page,
                 pageSize,
-                totalCount,
+                (int)totalCount,
                 totalPages
             );
 
@@ -45,9 +45,9 @@ public static class GamesEndpoints
         .WithDescription("Retrieve all games with optional filtering, sorting, and pagination.");
 
         // GET /games/{id} - Get a single game by ID
-        group.MapGet("/{id:int}", (int id, IGameRepository repository) =>
+        group.MapGet("/{id}", async (string id, IGameRepository repository) =>
         {
-            var game = repository.GetById(id);
+            var game = await repository.GetByIdAsync(id);
             return game is null
                 ? Results.NotFound(new { message = $"Game with ID {id} not found" })
                 : Results.Ok(game.ToDto());
@@ -57,9 +57,9 @@ public static class GamesEndpoints
         .WithDescription("Retrieve a specific game by its unique identifier.");
 
         // POST /games - Create a new game
-        group.MapPost("/", (CreateGameDto dto, IGameRepository repository) =>
+        group.MapPost("/", async (CreateGameDto dto, IGameRepository repository) =>
         {
-            var game = repository.Create(dto.ToEntity());
+            var game = await repository.CreateAsync(dto.ToEntity());
             return Results.CreatedAtRoute("GetGame", new { id = game.Id }, game.ToDto());
         })
         .WithName("CreateGame")
@@ -67,9 +67,9 @@ public static class GamesEndpoints
         .WithDescription("Add a new game to the store.");
 
         // PUT /games/{id} - Update an existing game
-        group.MapPut("/{id:int}", (int id, UpdateGameDto dto, IGameRepository repository) =>
+        group.MapPut("/{id}", async (string id, UpdateGameDto dto, IGameRepository repository) =>
         {
-            var updatedGame = repository.Update(id, dto.ToEntity(id));
+            var updatedGame = await repository.UpdateAsync(id, dto.ToEntity(id));
             return updatedGame is null
                 ? Results.NotFound(new { message = $"Game with ID {id} not found" })
                 : Results.NoContent();
@@ -79,9 +79,9 @@ public static class GamesEndpoints
         .WithDescription("Update an existing game by its ID.");
 
         // DELETE /games/{id} - Delete a game
-        group.MapDelete("/{id:int}", (int id, IGameRepository repository) =>
+        group.MapDelete("/{id}", async (string id, IGameRepository repository) =>
         {
-            var deleted = repository.Delete(id);
+            var deleted = await repository.DeleteAsync(id);
             return deleted
                 ? Results.NoContent()
                 : Results.NotFound(new { message = $"Game with ID {id} not found" });
